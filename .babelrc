@@ -1,0 +1,30 @@
+{
+    // 是否启用babelrc
+    "babelrc": true,
+    "comments": false,
+    "sourceMaps": true,
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "safari >= 7"
+                    ]
+                }
+            }
+        ],
+        "react"
+    ],
+    // env 选项的值将从 process.env.BABEL_ENV 获取，如果没有的话
+    // 则获取 process.env.NODE_ENV 的值它也无法获取时会设置为development
+    "env": {
+        "production": {
+            "plugins": []
+        },
+        "development": {
+            "plugins": []
+        }
+    }
+}
