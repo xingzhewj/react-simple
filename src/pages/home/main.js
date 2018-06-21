@@ -1,3 +1,15 @@
-import './css/home.less';
+import React, {Component} from 'react';
 
-export default {};
+class Home extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <h2>home页</h2>
+        );
+    }
+}
+
+export default Home;

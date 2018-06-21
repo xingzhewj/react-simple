@@ -8,19 +8,26 @@ module.exports = {
     mode: 'development',
     // 入口文件配置
     entry: {
-        main: path.join(__dirname, '../src/main.js')
+        main: path.join(__dirname, '../src/index.js')
     },
     // 出口文件配置
     output: {
         filename: '[name]-[hash].js',
         path: path.join(__dirname, '../dist'),
-        publicPath: '/'
+        publicPath: '/',
+        chunkFilename: '[name].[chunkhash:5].chunk.js'
+    },
+    resolve: {
+        extensions: ['.js', '.jsx', '.less', '.css', '.json'],
+        alias: {
+            Components: path.resolve(__dirname, '../src/components')
+        }
     },
     // 模块处理配置
     module: {
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.jsx?$/,
                 exclude: path.resolve(__dirname, '../node_modules'),
                 use: [
                     'babel-loader'
@@ -72,6 +79,7 @@ module.exports = {
         open: true,
         allowedHosts: [
             'test.baidu.com'
-        ]
+        ],
+        historyApiFallback: true
     }
 };
