@@ -30,6 +30,12 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: path.resolve(__dirname, '../node_modules'),
                 use: [
+                    {
+                        loader: 'bundle-loader',
+                        options: {
+                            lazy: true
+                        }
+                    },
                     'babel-loader'
                 ]
             },
