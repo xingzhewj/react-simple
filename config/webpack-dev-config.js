@@ -1,8 +1,17 @@
+/**
+ * @file 开发环境webpack配置脚本
+ * @Author wangjie19
+ * @Date 2018-06-25 11:24:59
+ * @Last Modified by: wangjie19
+ * @Last Modified time: 2018-06-25 17:53:05
+ */
+
+
 const webpack = require('webpack');
 const path = require('path');
+const glob = require('glob');
 // 插件引用
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     mode: 'development',
@@ -30,12 +39,6 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: path.resolve(__dirname, '../node_modules'),
                 use: [
-                    {
-                        loader: 'bundle-loader',
-                        options: {
-                            lazy: true
-                        }
-                    },
                     'babel-loader'
                 ]
             },
@@ -44,12 +47,29 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
-                        loader: 'css-loader',
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader:'postcss-loader',
                         options: {
-                            importLoaders: 1
+                            config: {
+                                path: path.resolve(__dirname, './postcss-dev-config.js')
+                            }
                         }
                     },
                     'less-loader'
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }
+
                 ]
             }
         ]
@@ -67,12 +87,38 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        }),
-        new CleanWebpackPlugin(path.join(__dirname, '../dist'), {
-            root: path.resolve(__dirname, '../'),
-            verbose:  true
         })
     ],
+    optimization: {
+        runtimeChunk: {
+            name: 'manifest'
+        },
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true,
+            cacheGroups: {
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    priority: -10,
+                    reuseExistingChunk: false,
+                    test: /node_modules\/(.*)\.js/
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.(scss|css)$/,
+                    chunks: 'all',
+                    minChunks: 1,
+                    reuseExistingChunk: true,
+                    enforce: true
+                }
+            }
+        }
+    },
     // 本地服务器配置
     devServer: {
         inline: true,

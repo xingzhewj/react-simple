@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './css/login';
 
 class Login extends Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class Login extends Component {
 
     render() {
         return (
-            <h2>登录</h2>
+            <h2 className="login-title">登录</h2>
         );
     }
 }
