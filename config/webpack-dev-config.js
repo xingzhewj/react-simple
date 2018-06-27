@@ -37,9 +37,10 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: path.resolve(__dirname, '../node_modules'),
+                include: path.resolve(__dirname, '../src'),
                 use: [
-                    'babel-loader'
+                    'babel-loader',
+                    'eslint-loader'
                 ]
             },
             {
@@ -51,11 +52,6 @@ module.exports = {
                     },
                     {
                         loader: 'postcss-loader',
-                        // options: {
-                        //     config: {
-                        //         path: path.resolve(__dirname, './postcss-dev-config.js')
-                        //     }
-                        // }
                     },
                     'less-loader'
                 ]

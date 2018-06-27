@@ -44,9 +44,8 @@ function validateResFormat(res) {
     });
     // 格式错误存在时重置数据
     if (errInfos.length) {
-        json.data = {};
         json.status = 1;
-        json.statusInfo = errInfos.join(';');
+        json.statusInfo = '服务器响应数据：' + errInfos.join(' & ');
         return Promise.reject(Object.freeze(json));
     }
     else {
@@ -60,7 +59,7 @@ function validateResFormat(res) {
  */
 function httpErrorProcess(error) {
     json.status = 1;
-    json.statusInfo = error.message;
+    json.statusInfo = `${error.name}:${error.message}`;
     return json;
 }
 // 拦截响应数据

@@ -40,7 +40,8 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: path.resolve(__dirname, '../node_modules'),
                 use: [
-                    'babel-loader'
+                    'babel-loader',
+                    'eslint-loader'
                 ]
             },
             {
@@ -49,12 +50,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
-                        loader:'postcss-loader',
-                        options: {
-                            config: {
-                                path: path.resolve(__dirname, './postcss-prod-config.js')
-                            }
-                        }
+                        loader:'postcss-loader'
                     },
                     'less-loader'
                 ]

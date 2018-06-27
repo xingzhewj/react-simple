@@ -8,7 +8,7 @@ class Login extends Component {
     }
 
     render() {
-        ihttp.get('https://www.apiopen.top/weatherApi', {city: '西安'}).then(data => {
+        ihttp.get('https://www.1apiopen.top/weatherApi', {city: '西安'}).then(data => {
             console.log('success:', data);
         }).catch(err => {
             console.error('error:', err);
