@@ -8,7 +8,11 @@ class Login extends Component {
     }
 
     render() {
-        ihttp.get('https://www.apiopen.top/weatherApi', {city: '西安'});
+        ihttp.get('https://www.apiopen.top/weatherApi', {city: '西安'}).then(data => {
+            console.log('success:', data);
+        }).catch(err => {
+            console.error('error:', err);
+        });
         return (
             <h2 className="login-title">登录</h2>
         );
