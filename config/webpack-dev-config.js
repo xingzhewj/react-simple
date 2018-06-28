@@ -36,11 +36,23 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.(js|jsx)$/,
                 include: path.resolve(__dirname, '../src'),
                 use: [
-                    'babel-loader',
-                    'eslint-loader'
+                    'babel-loader'
+                ]
+            },
+            {
+                test: /\.(js|jsx)$/,
+                enforce: 'pre',
+                include: path.resolve(__dirname, '../src'),
+                use: [
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            useEslintrc: true
+                        }
+                    }
                 ]
             },
             {
